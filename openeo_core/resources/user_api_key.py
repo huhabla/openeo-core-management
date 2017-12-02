@@ -1,20 +1,7 @@
 # -*- coding: utf-8 -*-
-"""The user specific resources
 
-This module specifies all endpoints to manage user accounts
-in the redis database via REST API calls.
-
-TODO: Implement POST full permission creation
-      Implement PUT to modify existing users
-"""
-
-from flask import jsonify, make_response, g
-from base_login import LoginBase
-from common.user import GRaaSUser
-from common.response_models import SimpleResponseModel
-from common.app import auth
-from common.logging_interface import log_api_call
-from flask_restful import reqparse
+from flask import jsonify, make_response
+from flask_restful import Resource
 from flask_restful_swagger_2 import Schema, swagger
 
 
@@ -22,12 +9,6 @@ __author__     = "Sören Gebbert"
 __copyright__  = "Copyright 2016, Sören Gebbert"
 __maintainer__ = "Sören Gebbert"
 __email__      = "soerengebbert@googlemail.com"
-
-
-# Create a temporal module where, order, column parser
-expiration_time_parser = reqparse.RequestParser()
-expiration_time_parser.add_argument('expiration_time', required=False, type=int,
-                                    location='args', help='The expiration time in seconds for the generated token')
 
 
 class TokenResponseModel(Schema):
@@ -52,12 +33,9 @@ class TokenResponseModel(Schema):
     required = ["status", "token"]
 
 
-class APIKeyCreationResource(LoginBase):
+class APIKeyCreationResource(Resource):
     """Get an API key that has no expiration time
     """
-
-    def __init__(self):
-        LoginBase.__init__(self)
 
     @swagger.doc({
         'tags': ['api key management'],
@@ -75,10 +53,9 @@ class APIKeyCreationResource(LoginBase):
         }
     })
     def get(self):
-
         try:
             return make_response(jsonify(TokenResponseModel(status="success",
-                                         token=g.user.generate_api_key(),
+                                         token="Jo",
                                          message="API key successfully generated")))
         except:
             return make_response(jsonify(TokenResponseModel(status="error",
@@ -86,13 +63,9 @@ class APIKeyCreationResource(LoginBase):
                                          message="Error while generating API key")), 400)
 
 
-class TokenCreationResource(LoginBase):
+class TokenCreationResource(Resource):
     """Get an authorization token
     """
-    decorators = [log_api_call, auth.login_required]
-
-    def __init__(self):
-        LoginBase.__init__(self)
 
     @swagger.doc({
         'tags': ['api key management'],
@@ -121,22 +94,11 @@ class TokenCreationResource(LoginBase):
     })
     def get(self):
 
-        args = expiration_time_parser.parse_args()
-        expiration = 86400
-
         try:
-            if "expiration_time" in args:
-                if args["expiration_time"]:
-                    expiration = args["expiration_time"]
-
-                    if expiration > 365*86400:
-                        raise Exception("Expiration time is to large. Maximum is 365 days.")
-
             return make_response(jsonify(TokenResponseModel(status="success",
-                                         token=g.user.generate_auth_token(expiration=expiration),
-                                         message="Token successfully generated with an expiration time of %i seconds"%expiration)))
-        except Exception as e:
+                                         token="Jo",
+                                         message="API key successfully generated")))
+        except:
             return make_response(jsonify(TokenResponseModel(status="error",
                                          token="",
-                                         message="Error while generating token: %s"%str(e))), 400)
-
+                                         message="Error while generating API key")), 400)

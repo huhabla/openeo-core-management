@@ -3,9 +3,6 @@
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from flask import Flask
-# from flask_socketio import SocketIO
-# Instead of using this: from flask.ext.restful import  Api
-# Use this:
 from flask_restful_swagger_2 import Api, swagger
 
 __author__     = "Sören Gebbert"

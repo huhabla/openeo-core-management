@@ -14,9 +14,9 @@ from resources.common.app import flask_api
 
 def create_endpoints():
 
-    from resources.mapset_management import MapsetLockManagementResource
+    from resources.lock_management import ResourceLockManagementResource
 
-    flask_api.add_resource(MapsetLockManagementResource, '/locations/<string:location_name>/mapsets/<string:mapset_name>/lock')
+    flask_api.add_resource(ResourceLockManagementResource, '/lock/<string:resource_id>')
 
     from resources.user_management import UserListResource, UserManagementResource
     from resources.api_log_management import APILogResource

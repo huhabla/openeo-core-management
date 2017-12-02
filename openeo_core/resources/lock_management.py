@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, make_response
 from copy import deepcopy
-import os
-from flask_restful_swagger_2 import swagger, Schema
+from flask_restful_swagger_2 import swagger
 from flask_restful import Resource
-from core.resources.common.response_models import ProcessingResponseModel
+from openeo_core.resources.common.response_models import ProcessingResponseModel
 
 
 __author__     = "Sören Gebbert"
@@ -13,7 +12,7 @@ __maintainer__ = "Sören Gebbert"
 __email__      = "soerengebbert@googlemail.com"
 
 
-class MapsetLockManagementResponseModel(ProcessingResponseModel):
+class ResourceLockManagementResponseModel(ProcessingResponseModel):
     """The response content that is returned by the GET request
     """
     type = 'object'
@@ -23,7 +22,7 @@ class MapsetLockManagementResponseModel(ProcessingResponseModel):
     required =  deepcopy(ProcessingResponseModel.required)
 
 
-class MapsetLockManagementResource(Resource):
+class ResourceLockManagementResource(Resource):
     """Lock a mapset
     """
     @swagger.doc({
@@ -41,7 +40,7 @@ class MapsetLockManagementResource(Resource):
         'responses': {
             '200': {
                 'description': 'Get the resource lock status, either "True" or "None"',
-                'schema':MapsetLockManagementResponseModel
+                'schema':ResourceLockManagementResponseModel
             },
             '400': {
                 'description': 'The error message',
@@ -50,13 +49,13 @@ class MapsetLockManagementResource(Resource):
         }
     })
     def get(self, location_name, mapset_name):
-        """Get the lock status 
+        """Get the lock status
         """
-        return make_response(jsonify("Mapset locked?"), http_code)
+        return make_response(jsonify("Mapset locked?"), 200)
 
     @swagger.doc({
         'tags': ['resource locking'],
-        'description': 'Create a resource lock.', 
+        'description': 'Create a resource lock.',
         'parameters': [
             {
                 'name': 'resource_id',

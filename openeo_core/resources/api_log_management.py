@@ -2,14 +2,13 @@
 """
 This module is designed to deliver the API calls of a specific user
 """
-from flask import g
 from flask import jsonify, make_response
 from flask_restful import Resource
 
 from flask_restful_swagger_2 import swagger
 from flask_restful_swagger_2 import Schema
 
-from core.resources.common.response_models import SimpleResponseModel
+from openeo_core.resources.common.response_models import SimpleResponseModel
 
 __author__     = "Sören Gebbert"
 __copyright__  = "Copyright 2016, Sören Gebbert"
@@ -72,8 +71,6 @@ class ApiLogListModel(Schema):
 class APILogResource(Resource):
     """API log management
     """
-
-    def __init__(self):
 
     @swagger.doc({
         'tags': ['api_log'],

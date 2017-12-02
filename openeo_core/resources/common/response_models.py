@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-
-import cPickle
-import time
-from datetime import datetime
-from flask import jsonify
 from flask_restful_swagger_2 import Schema
-from copy import deepcopy
 
 __author__     = "Sören Gebbert"
 __copyright__  = "Copyright 2016, Sören Gebbert"
