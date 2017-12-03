@@ -1,0 +1,937 @@
+{
+    "consumes": [
+        "application/gml+xml", 
+        "application/json"
+    ], 
+    "definitions": {
+        "ApiInfoModel": {
+            "description": "Response schema that contains API information of the called endpoint.", 
+            "example": {
+                "endpoint": "asyncephemeralresource", 
+                "method": "POST", 
+                "path": "/locations/nc_spm_08/processing_async", 
+                "request_url": "http://localhost/locations/nc_spm_08/processing_async"
+            }, 
+            "properties": {
+                "endpoint": {
+                    "description": "The endpoint of the API call", 
+                    "type": "string"
+                }, 
+                "method": {
+                    "description": "The HTTP method of the request", 
+                    "type": "string"
+                }, 
+                "path": {
+                    "description": "The path of the REST API call", 
+                    "type": "string"
+                }, 
+                "request_url": {
+                    "description": "The request URL", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "endpoint", 
+                "method", 
+                "path", 
+                "request_url"
+            ], 
+            "type": "object"
+        }, 
+        "ApiLogEntryModel": {
+            "description": "Response schema for a single API log entry that is used to track all API calls of a user.", 
+            "example": {
+                "endpoint": "apilogresource", 
+                "method": "POST", 
+                "node": "node", 
+                "path": "/api_log", 
+                "request_str": "<Request 'http://localhost:5000/api_log' [POST]>", 
+                "time_stamp": "Fri, 01 Dec 2017 19:53:36 GMT", 
+                "url": "http://localhost:5000/api_log"
+            }, 
+            "properties": {
+                "endpoint": {
+                    "description": "The endpoint of the API call", 
+                    "type": "string"
+                }, 
+                "method": {
+                    "description": "The HTTP method of the request", 
+                    "type": "string"
+                }, 
+                "node": {
+                    "description": "The node that executed the API call", 
+                    "type": "string"
+                }, 
+                "path": {
+                    "description": "The path of the REST API call", 
+                    "type": "string"
+                }, 
+                "request_str": {
+                    "description": "The request string", 
+                    "type": "string"
+                }, 
+                "time_stamp": {
+                    "description": "The time stamp of the API call", 
+                    "type": "string"
+                }, 
+                "url": {
+                    "description": "The request URL", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "time_stamp", 
+                "node", 
+                "endpoint", 
+                "method", 
+                "path", 
+                "url", 
+                "request_str"
+            ], 
+            "type": "object"
+        }, 
+        "ApiLogListModel": {
+            "description": "Response schema that represents a list of API log entries.", 
+            "example": [
+                {
+                    "endpoint": "apilogresource", 
+                    "method": "POST", 
+                    "node": "node", 
+                    "path": "/api_log", 
+                    "request_str": "<Request 'http://localhost:5000/api_log' [POST]>", 
+                    "time_stamp": "Fri, 01 Dec 2017 19:53:36 GMT", 
+                    "url": "http://localhost:5000/api_log"
+                }, 
+                {
+                    "endpoint": "apilogresource", 
+                    "method": "POST", 
+                    "node": "node", 
+                    "path": "/api_log", 
+                    "request_str": "<Request 'http://localhost:5000/api_log' [POST]>", 
+                    "time_stamp": "Fri, 01 Dec 2017 19:53:36 GMT", 
+                    "url": "http://localhost:5000/api_log"
+                }, 
+                {
+                    "endpoint": "apilogresource", 
+                    "method": "POST", 
+                    "node": "node", 
+                    "path": "/api_log", 
+                    "request_str": "<Request 'http://localhost:5000/api_log' [POST]>", 
+                    "time_stamp": "Fri, 01 Dec 2017 19:53:36 GMT", 
+                    "url": "http://localhost:5000/api_log"
+                }, 
+                {
+                    "endpoint": "apilogresource", 
+                    "method": "POST", 
+                    "node": "node", 
+                    "path": "/api_log", 
+                    "request_str": "<Request 'http://localhost:5000/api_log' [POST]>", 
+                    "time_stamp": "Fri, 01 Dec 2017 19:53:36 GMT", 
+                    "url": "http://localhost:5000/api_log"
+                }
+            ], 
+            "properties": {
+                "api_log_list": {
+                    "description": "A list of ApiLogEntryModel objects", 
+                    "items": {
+                        "$ref": "#/definitions/ApiLogEntryModel"
+                    }, 
+                    "type": "array"
+                }
+            }, 
+            "required": [
+                "api_log_list"
+            ], 
+            "type": "object"
+        }, 
+        "ProcessLogModel": {
+            "description": "This class defines the model for Unix process information.", 
+            "example": {
+                "executable": "g.region", 
+                "parameter": [
+                    "raster=elevation@PERMANENT", 
+                    "res=10000", 
+                    "-p", 
+                    "--v"
+                ], 
+                "return_code": 0, 
+                "stderr": [
+                    "NS resolution has been changed", 
+                    "EW resolution has been changed", 
+                    "NS and EW resolutions are different", 
+                    ""
+                ], 
+                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:       0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694380022900787\nnorth:      228500\nsouth:      215000\nwest:       630000\neast:       645000\nnsres:      13500\newres:      7500\nrows:       1\ncols:       2\ncells:      2\n"
+            }, 
+            "properties": {
+                "executable": {
+                    "description": "The name of the executable that was executed", 
+                    "type": "string"
+                }, 
+                "parameter": {
+                    "description": "The parameter of the executable that was executed", 
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "type": "array"
+                }, 
+                "return_code": {
+                    "description": "The return code of the executable", 
+                    "format": "int32", 
+                    "type": "number"
+                }, 
+                "run_time": {
+                    "description": "The runtime of the executable in seconds", 
+                    "format": "float", 
+                    "type": "number"
+                }, 
+                "stderr": {
+                    "description": "The stderr output of the executable as list of strings", 
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "type": "array"
+                }, 
+                "stdout": {
+                    "description": "The stdout output of the executable", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "executable", 
+                "parameter", 
+                "stdout", 
+                "stderr", 
+                "return_code"
+            ], 
+            "type": "object"
+        }, 
+        "ProcessingResponseListModel": {
+            "description": "Response schema that represent a list of ProcessingResponseModel's", 
+            "properties": {
+                "resource_list": {
+                    "description": "A list of ProcessingResponseModel objects", 
+                    "items": {
+                        "$ref": "#/definitions/ProcessingResponseModel"
+                    }, 
+                    "type": "array"
+                }
+            }, 
+            "required": [
+                "resource_list"
+            ], 
+            "type": "object"
+        }, 
+        "ProcessingResponseModel": {
+            "description": "This is the base class for all asynchronous response models. This class must", 
+            "example": {
+                "accept_datetime": "2017-05-24 22:37:21.607255", 
+                "accept_timestamp": 1495658241.607252, 
+                "api_info": {
+                    "endpoint": "asyncephemeralresource", 
+                    "method": "POST", 
+                    "path": "/locations/nc_spm_08/processing_async", 
+                    "request_url": "http://localhost/locations/nc_spm_08/processing_async"
+                }, 
+                "datetime": "2017-05-24 22:37:21.608717", 
+                "http_code": 200, 
+                "message": "Resource accepted", 
+                "process_results": {}, 
+                "resource_id": "resource_id-2be8cafe-b451-46a0-be15-f61d95c5efa1", 
+                "status": "accepted", 
+                "timestamp": 1495658241.608716, 
+                "urls": {
+                    "resources": [], 
+                    "status": "http://localhost/status/admin/resource_id-2be8cafe-b451-46a0-be15-f61d95c5efa1"
+                }, 
+                "user_id": "admin"
+            }, 
+            "properties": {
+                "accept_datetime": {
+                    "description": "The acceptance timestamp of the response in human readable format", 
+                    "type": "string"
+                }, 
+                "accept_timestamp": {
+                    "description": "The acceptance timestamp in seconds of the response", 
+                    "format": "double", 
+                    "type": "number"
+                }, 
+                "api_info": {
+                    "$ref": "#/definitions/ApiInfoModel"
+                }, 
+                "datetime": {
+                    "description": "The current timestamp of the response in human readable format", 
+                    "type": "string"
+                }, 
+                "http_code": {
+                    "description": "The HTTP code of the response", 
+                    "format": "int32", 
+                    "type": "number"
+                }, 
+                "message": {
+                    "description": "Message for the user, maybe status, finished or error message", 
+                    "type": "string"
+                }, 
+                "process_log": {
+                    "description": "A list of ProcessLogModels", 
+                    "items": {
+                        "$ref": "#/definitions/ProcessLogModel"
+                    }, 
+                    "type": "array"
+                }, 
+                "process_results": {
+                    "description": "An arbitrary class that stores the processing results", 
+                    "type": "string"
+                }, 
+                "progress": {
+                    "$ref": "#/definitions/ProgressInfoModel"
+                }, 
+                "resource_id": {
+                    "description": "The unique resource id", 
+                    "type": "string"
+                }, 
+                "status": {
+                    "description": "The status of the response", 
+                    "type": "string"
+                }, 
+                "time_delta": {
+                    "description": "The time delta of the processing in seconds", 
+                    "format": "double", 
+                    "type": "number"
+                }, 
+                "timestamp": {
+                    "description": "The current timestamp in seconds of the response", 
+                    "format": "double", 
+                    "type": "number"
+                }, 
+                "urls": {
+                    "$ref": "#/definitions/UrlModel"
+                }, 
+                "user_id": {
+                    "description": "The id of the user that issued a request", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "status", 
+                "user_id", 
+                "resource_id", 
+                "timestamp", 
+                "datetime", 
+                "accept_timestamp", 
+                "accept_datetime", 
+                "message", 
+                "api_info"
+            ], 
+            "type": "object"
+        }, 
+        "ProgressInfoModel": {
+            "description": "This class defines the model for progress information.", 
+            "example": {
+                "num_of_steps": 6, 
+                "step": 6
+            }, 
+            "properties": {
+                "num_of_steps": {
+                    "description": "The total number of processing steps", 
+                    "format": "int64", 
+                    "type": "integer"
+                }, 
+                "num_of_sub_steps": {
+                    "description": "The total number of sub steps of the current processing step", 
+                    "format": "int32", 
+                    "type": "integer"
+                }, 
+                "step": {
+                    "description": "The current step of processing", 
+                    "format": "int64", 
+                    "type": "integer"
+                }, 
+                "sub_step": {
+                    "description": "The current sub step of the current processing step", 
+                    "format": "int64", 
+                    "type": "integer"
+                }
+            }, 
+            "required": [
+                "step", 
+                "num_of_steps"
+            ], 
+            "type": "object"
+        }, 
+        "SimpleResponseModel": {
+            "description": "Response schema that is used in cases that no asynchronous run was performed.", 
+            "properties": {
+                "message": {
+                    "description": "A simple message to describes the status of the resource", 
+                    "type": "string"
+                }, 
+                "status": {
+                    "description": "The status of the resource, values: accepted, running, finished, terminated, error", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "status", 
+                "message"
+            ], 
+            "type": "object"
+        }, 
+        "TokenResponseModel": {
+            "description": "Response schema that is used for authentication token generation.", 
+            "properties": {
+                "message": {
+                    "description": "The message of the token generation", 
+                    "type": "string"
+                }, 
+                "status": {
+                    "description": "The status of the resource, values: success, error", 
+                    "type": "string"
+                }, 
+                "token": {
+                    "description": "The generated token for authentication", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "status", 
+                "token"
+            ], 
+            "type": "object"
+        }, 
+        "UrlModel": {
+            "description": "URL schema that points to the status URL", 
+            "properties": {
+                "resources": {
+                    "description": "A list of URLs to generated resources", 
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "type": "array"
+                }, 
+                "status": {
+                    "description": "The URL to check the status of the resource", 
+                    "type": "string"
+                }
+            }, 
+            "required": [
+                "status", 
+                "resources"
+            ], 
+            "type": "object"
+        }
+    }, 
+    "info": {
+        "description": "openEO core management", 
+        "termsOfService": "", 
+        "title": "openEO core management", 
+        "version": "0.1pre-alpha"
+    }, 
+    "paths": {
+        "/api_key": {
+            "get": {
+                "description": "Create an API key for permanent authentication. API keys have no expiration time. Minimum required user role: admin.", 
+                "responses": {
+                    "200": {
+                        "description": "The API key generation response", 
+                        "schema": {
+                            "$ref": "#/definitions/TokenResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message in case of failure", 
+                        "schema": {
+                            "$ref": "#/definitions/TokenResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "api key management"
+                ]
+            }
+        }, 
+        "/api_log/{user_id}": {
+            "get": {
+                "description": "Get a list of all API calls that have been called by the provided user. ", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Returned a list of all API calls that have been called by the provided user.", 
+                        "schema": {
+                            "$ref": "#/definitions/ApiLogListModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message why API log gathering did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "api_log"
+                ]
+            }, 
+            "post": {
+                "consumes": [
+                    "application/json"
+                ], 
+                "description": "Log an API call. ", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "An API log entry", 
+                        "in": "body", 
+                        "name": "api_log", 
+                        "required": true, 
+                        "schema": {
+                            "$ref": "#/definitions/ApiLogEntryModel"
+                        }
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "API call entry successfully logged.", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message why API call logging did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "api_log"
+                ]
+            }
+        }, 
+        "/lock/{resource_id}": {
+            "delete": {
+                "description": "Delete a resource lock.", 
+                "parameters": [
+                    {
+                        "description": "The id of the resource for which the lock should be deleted.", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Success message if the resource was unlocked successfully", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "summary": "Unlock a locked resource", 
+                "tags": [
+                    "resource locking"
+                ]
+            }, 
+            "get": {
+                "description": "Return the resource lock status. ", 
+                "parameters": [
+                    {
+                        "description": "The id of the resource that should be checked for locking", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Get the resource lock status, either \"True\" or \"None\"", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "summary": "Get the lock status", 
+                "tags": [
+                    "resource locking"
+                ]
+            }, 
+            "post": {
+                "description": "Create a resource lock.", 
+                "parameters": [
+                    {
+                        "description": "The id of the resource that should be locked", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "default": "3600", 
+                        "description": "The expiration time in seconds for the created resource lock", 
+                        "in": "query", 
+                        "name": "expiration_time", 
+                        "required": false, 
+                        "type": "integer"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Success message if the resource was locked successfully", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "summary": "Lock a mapset", 
+                "tags": [
+                    "resource locking"
+                ]
+            }, 
+            "put": {
+                "description": "Extend the expiration time of a resource lock.", 
+                "parameters": [
+                    {
+                        "description": "The id of the resource for which the locked should be extended", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "default": "3600", 
+                        "description": "The expiration time in seconds for the resource lock", 
+                        "in": "query", 
+                        "name": "expiration_time", 
+                        "required": false, 
+                        "type": "integer"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Success message if the resource locked was successfully extended.", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "summary": "Lock a mapset", 
+                "tags": [
+                    "resource locking"
+                ]
+            }
+        }, 
+        "/resources/{user_id}": {
+            "delete": {
+                "description": "Terminate all accepted and running resources of the specified user.", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Termination requests have been successfully committed. Be aware that does not mean, that the resources have been successfully terminated.", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "401": {
+                        "description": "The error message why the resource termination did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "resource management"
+                ]
+            }, 
+            "get": {
+                "description": "Get a list of resources that have been generated by the specified user", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Returned a list of resources that have been generated by the specified user.", 
+                        "schema": {
+                            "$ref": "#/definitions/ProcessingResponseListModel"
+                        }
+                    }, 
+                    "401": {
+                        "description": "The error message why resource gathering did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "resource management"
+                ]
+            }
+        }, 
+        "/status/{user_id}/{resource_id}": {
+            "delete": {
+                "description": "Request the termination of the resource.", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "The id of the resource", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Returned if termination request of the resource was successfully committed. Be aware that this does not mean, that the resource was successfully terminated.", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message why resource storage information gathering did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "resource management"
+                ]
+            }, 
+            "get": {
+                "description": "Returns the status of a resource.", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "The id of the resource", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "The current state of the resource", 
+                        "schema": {
+                            "$ref": "#/definitions/ProcessingResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message if the resource does not exists", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "resource management"
+                ]
+            }, 
+            "post": {
+                "consumes": [
+                    "application/json"
+                ], 
+                "description": "Create a new resource entry.", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "The id of the resource", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "The description of the resource that should the created", 
+                        "in": "body", 
+                        "name": "resource", 
+                        "required": true, 
+                        "schema": {
+                            "$ref": "#/definitions/ProcessingResponseModel"
+                        }
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Returned True if resource creation was successful.", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message why resource creation did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "resource management"
+                ]
+            }, 
+            "put": {
+                "consumes": [
+                    "application/json"
+                ], 
+                "description": "Update an existing resource.", 
+                "parameters": [
+                    {
+                        "description": "The unique user name/id", 
+                        "in": "path", 
+                        "name": "user_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "The id of the resource", 
+                        "in": "path", 
+                        "name": "resource_id", 
+                        "required": true, 
+                        "type": "string"
+                    }, 
+                    {
+                        "description": "The description of the resource that should the updated", 
+                        "in": "body", 
+                        "name": "resource", 
+                        "required": true, 
+                        "schema": {
+                            "$ref": "#/definitions/ProcessingResponseModel"
+                        }
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "Returned True if resource was successfully updated.", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message why resource update did not succeeded", 
+                        "schema": {
+                            "$ref": "#/definitions/SimpleResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "resource management"
+                ]
+            }
+        }, 
+        "/token": {
+            "get": {
+                "description": "Create an authentication token. Tokens have an expiration time. The default expiration time is one day (86400s). maximum length is 365 days. Minimum required user role: user.", 
+                "parameters": [
+                    {
+                        "default": "86400", 
+                        "description": "The expiration time in seconds for the generated token", 
+                        "in": "query", 
+                        "name": "expiration_time", 
+                        "required": false, 
+                        "type": "integer"
+                    }
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "The token generation response", 
+                        "schema": {
+                            "$ref": "#/definitions/TokenResponseModel"
+                        }
+                    }, 
+                    "400": {
+                        "description": "The error message in case of failure", 
+                        "schema": {
+                            "$ref": "#/definitions/TokenResponseModel"
+                        }
+                    }
+                }, 
+                "tags": [
+                    "api key management"
+                ]
+            }
+        }
+    }, 
+    "security": [
+        {
+            "basicAuth": []
+        }
+    ], 
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic"
+        }
+    }, 
+    "swagger": "2.0"
+}
