@@ -32,7 +32,3 @@ def create_endpoints():
 
     flask_api.add_resource(ResourceManager, '/status/<string:user_id>/<string:resource_id>')
     flask_api.add_resource(ResourcesManager, '/resources/<string:user_id>')
-
-
-
-

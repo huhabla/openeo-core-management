@@ -55,12 +55,12 @@ class APIKeyCreationResource(Resource):
     def get(self):
         try:
             return make_response(jsonify(TokenResponseModel(status="success",
-                                         token="Jo",
-                                         message="API key successfully generated")))
+                                                            token="Jo",
+                                                            message="API key successfully generated")), 200)
         except:
             return make_response(jsonify(TokenResponseModel(status="error",
-                                         token="",
-                                         message="Error while generating API key")), 400)
+                                                            token="",
+                                                            message="Error while generating API key")), 400)
 
 
 class TokenCreationResource(Resource):
@@ -96,9 +96,9 @@ class TokenCreationResource(Resource):
 
         try:
             return make_response(jsonify(TokenResponseModel(status="success",
-                                         token="Jo",
-                                         message="API key successfully generated")))
+                                                            token="Jo",
+                                                            message="API key successfully generated")), 200)
         except:
             return make_response(jsonify(TokenResponseModel(status="error",
-                                         token="",
-                                         message="Error while generating API key")), 400)
+                                                            token="",
+                                                            message="Error while generating API key")), 400)

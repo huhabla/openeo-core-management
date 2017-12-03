@@ -243,7 +243,7 @@ class ProcessingResponseModel(Schema):
         'api_info': ApiInfoModel
     }
     required = ['status', 'user_id', 'resource_id', 'timestamp', 'datetime', 'accept_timestamp',
-                'accept_datetime', 'message']
+                'accept_datetime', 'message', 'api_info']
 
     example = {
       "accept_datetime": "2017-05-24 22:37:21.607255",

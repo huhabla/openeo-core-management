@@ -7,7 +7,6 @@ __maintainer__ = "Soeren Gebbert"
 __email__      = "soerengebbert@googlemail.com"
 
 from resources.common.app import flask_app
-from resources.common.config import global_config
 from flask import make_response, jsonify
 
 # Return the version of GRaaS as REST API call
@@ -18,5 +17,5 @@ def version():
     Returns: Response
 
     """
-    info = {"version":"0.01", "roles":global_config.ROLES}
+    info = {"version":"0.01"}
     return make_response(jsonify(info), 200)

@@ -19,16 +19,6 @@ __maintainer__ = "Sören Gebbert"
 __email__      = "soerengebbert@googlemail.com"
 
 
-class UserAuthentificationResource(Resource):
-    """Authentify a single user
-
-    """
-    def get(self, user_id, password):
-        """Return True if the user is valid
-        """
-        return make_response(jsonify({"Status":"success", "Messages":"User %s is valid"%user_id}), 200)
-
-
 class UserListResource(Resource):
     """List all user in the database.
     """
@@ -55,6 +45,7 @@ class UserListResource(Resource):
         return make_response(jsonify({"Status":"success",
                                       "User list":[]}))
 
+
 class UserManagementResource(Resource):
     """Get, Create and Delete a single user
 
@@ -74,7 +65,11 @@ class UserManagementResource(Resource):
     def post(self, user_id):
         """Create a user in the database
         """
+        return make_response(jsonify({"Status":"success", "Messages":"User %s created"%user_id}), 200)
 
+    def put(self, user_id):
+        """Update a user in the database
+        """
         return make_response(jsonify({"Status":"success", "Messages":"User %s created"%user_id}), 200)
 
     def delete(self, user_id):

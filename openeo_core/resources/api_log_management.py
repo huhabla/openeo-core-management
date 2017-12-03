@@ -53,6 +53,14 @@ class ApiLogEntryModel(Schema):
     required = ["time_stamp", "node", "endpoint",
                 "method", "path", "url", "request_str"]
 
+    example = {u'endpoint': u'apilogresource',
+               u'method': u'POST',
+               u'node': u'node',
+               u'path': u'/api_log',
+               u'request_str': u"<Request 'http://localhost:5000/api_log' [POST]>",
+               u'time_stamp': u'Fri, 01 Dec 2017 19:53:36 GMT',
+               u'url': u'http://localhost:5000/api_log'}
+
 
 class ApiLogListModel(Schema):
     """Response schema that represents a list of API log entries.
@@ -66,6 +74,35 @@ class ApiLogListModel(Schema):
         }
     }
     required = ["api_log_list"]
+
+    example = [{u'endpoint': u'apilogresource',
+                u'method': u'POST',
+                u'node': u'node',
+                u'path': u'/api_log',
+                u'request_str': u"<Request 'http://localhost:5000/api_log' [POST]>",
+                u'time_stamp': u'Fri, 01 Dec 2017 19:53:36 GMT',
+                u'url': u'http://localhost:5000/api_log'},
+               {u'endpoint': u'apilogresource',
+                u'method': u'POST',
+                u'node': u'node',
+                u'path': u'/api_log',
+                u'request_str': u"<Request 'http://localhost:5000/api_log' [POST]>",
+                u'time_stamp': u'Fri, 01 Dec 2017 19:53:36 GMT',
+                u'url': u'http://localhost:5000/api_log'},
+               {u'endpoint': u'apilogresource',
+                u'method': u'POST',
+                u'node': u'node',
+                u'path': u'/api_log',
+                u'request_str': u"<Request 'http://localhost:5000/api_log' [POST]>",
+                u'time_stamp': u'Fri, 01 Dec 2017 19:53:36 GMT',
+                u'url': u'http://localhost:5000/api_log'},
+               {u'endpoint': u'apilogresource',
+                u'method': u'POST',
+                u'node': u'node',
+                u'path': u'/api_log',
+                u'request_str': u"<Request 'http://localhost:5000/api_log' [POST]>",
+                u'time_stamp': u'Fri, 01 Dec 2017 19:53:36 GMT',
+                u'url': u'http://localhost:5000/api_log'}]
 
 
 class APILogResource(Resource):
@@ -96,4 +133,41 @@ class APILogResource(Resource):
         }
      })
     def get(self, user_id):
-        return make_response(jsonify("API model"), 200)
+        return make_response(jsonify("A list of API calls"), 200)
+
+
+    @swagger.doc({
+        'tags': ['api_log'],
+        'description': 'Log an API call. ',
+        'consumes':['application/json'],
+        'parameters': [
+            {
+                'name': 'user_id',
+                'description': 'The unique user name/id',
+                'required': True,
+                'in': 'path',
+                'type': 'string'
+            },
+            {
+                'name': 'api_log',
+                'description': 'An API log entry',
+                'required': True,
+                'in': 'body',
+                'schema': ApiLogEntryModel
+            }
+        ],
+        'responses': {
+            '200': {
+                'description': 'API call entry successfully logged.',
+                'schema':SimpleResponseModel
+            },
+            '400': {
+                'description': 'The error message why API call logging did not succeeded',
+                'schema':SimpleResponseModel
+            }
+        }
+     })
+    def post(self, user_id):
+        return make_response(jsonify("API call logged"), 200)
+
+

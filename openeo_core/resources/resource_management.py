@@ -93,6 +93,7 @@ class ResourceManager(Resource):
     @swagger.doc({
         'tags': ['resource management'],
         'description': 'Create a new resource entry.',
+        'consumes':['application/json'],
         'parameters': [
             {
                 'name': 'user_id',
@@ -133,6 +134,7 @@ class ResourceManager(Resource):
     @swagger.doc({
         'tags': ['resource management'],
         'description': 'Update an existing resource.',
+        'consumes':['application/json'],
         'parameters': [
             {
                 'name': 'user_id',
